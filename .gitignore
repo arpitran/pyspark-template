@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+data/generated/
+output/
+spark-warehouse/
+metastore_db/
+derby.log
+spark-events/
+*.pyc
+.DS_Store
