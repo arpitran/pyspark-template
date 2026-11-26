@@ -28,6 +28,9 @@ def build_spark(app_name, extra_conf=None, with_delta=False, event_log=False):
         .config("spark.driver.memory", "6g")
         .config("spark.sql.session.timeZone", "UTC")
         .config("spark.ui.showConsoleProgress", "false")
+        # Bind to localhost so the UI URL is http://localhost:4040, not the machine's network address.
+        .config("spark.driver.host", "localhost")
+        .config("spark.driver.bindAddress", "127.0.0.1")
     )
 
     if event_log:

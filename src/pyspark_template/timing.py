@@ -41,7 +41,8 @@ def plan_text(df):
 def final_plan_text(df):
     """Physical plan after the query ran. With AQE on, this is the plan Spark actually used.
 
-    Call it after an action on the same DataFrame. Before any action, AQE plans
+    Call it after collect() (or toPandas()) on the same DataFrame. count() and writes build
+    a new plan, so they leave this DataFrame's plan unexecuted. Before any action, AQE plans
     show "isFinalPlan=false" and do not include runtime changes such as a join
     switched to broadcast or a skewed partition split.
     """
