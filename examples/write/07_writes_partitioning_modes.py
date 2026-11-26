@@ -26,7 +26,7 @@ def count_partitions_and_files(path):
     file_count = 0
     for folder in sorted(path.glob("order_date=*")):
         partition_folders.append(folder.name)
-        for data_file in folder.glob("*.parquet"):
+        for _ in folder.glob("*.parquet"):
             file_count += 1
     return partition_folders, file_count
 

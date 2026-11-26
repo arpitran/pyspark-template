@@ -34,3 +34,5 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B"]
+# The formatter wraps code; the lines left over are long explanatory strings.
+ignore = ["E501"]

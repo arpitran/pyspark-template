@@ -60,7 +60,9 @@ join_stage = None
 for stage in stages:
     seconds = stage["executorRunTime"] / 1000
     shuffle_rows = stage.get("shuffleReadRecords", 0)
-    print(f"{stage['stageId']:>5} {stage['numTasks']:>5} {seconds:>8.2f} {shuffle_rows:>18,}  {stage['name'][:50]}")
+    print(
+        f"{stage['stageId']:>5} {stage['numTasks']:>5} {seconds:>8.2f} {shuffle_rows:>18,}  {stage['name'][:50]}"
+    )
     # The join runs in the stage that reads the most shuffled rows.
     if join_stage is None or shuffle_rows > join_stage.get("shuffleReadRecords", 0):
         join_stage = stage

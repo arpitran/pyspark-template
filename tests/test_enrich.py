@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from pyspark.sql import Row
-from pyspark.testing import assertDataFrameEqual, assertSchemaEqual
 from pyspark.sql.types import DoubleType, StringType, StructField, StructType
+from pyspark.testing import assertDataFrameEqual, assertSchemaEqual
 
 from pyspark_template.transforms.enrich import (
     add_order_revenue,

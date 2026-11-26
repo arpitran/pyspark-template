@@ -22,6 +22,30 @@ def time_it(label, results):
     print(f"[time] {label}: {seconds:.2f}s")
 
 
+def measure(label, action, results, runs=3):
+    """Run action() several times and keep the best time in results[label].
+
+    Best-of-N, not the average: the first run pays for JVM warm-up and file
+    caching, and background noise only ever makes a run slower.
+
+    Build the DataFrame INSIDE action(). Running an action twice on the same
+    DataFrame reuses its shuffle files, so later runs skip most of the work and
+    the timing is meaningless. (Found the hard way: a 1.7s join "ran" in 0.04s.)
+    """
+    timings = []
+    for _ in range(runs):
+        start = time.perf_counter()
+        action()
+        timings.append(time.perf_counter() - start)
+    best = min(timings)
+    results[label] = best
+    rounded = []
+    for seconds in timings:
+        rounded.append(f"{seconds:.2f}")
+    print(f"[time] {label}: best {best:.2f}s of {runs} runs ({', '.join(rounded)})")
+    return best
+
+
 def noop_write(df):
     """Run the whole query without keeping the output.
 
